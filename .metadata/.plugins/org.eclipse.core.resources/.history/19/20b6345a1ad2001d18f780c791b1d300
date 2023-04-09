@@ -1,0 +1,18 @@
+package ltd.newbee.mall.dao;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import ltd.newbee.mall.entity.HotelDetail;
+
+import java.util.HashMap;
+import java.util.List;
+
+@Mapper
+public interface HotelDetailMapper {
+
+	List<HotelDetail> getHotelDetail(@Param( "hotelId") int hotelId);
+
+	List<HotelDetail> getHotelReview(@Param("hotelId") int hotelId);
+
+}

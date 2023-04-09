@@ -1,0 +1,97 @@
+package ltd.newbee.mall.entity;
+
+public class HotelDetail {
+	private int roomId;
+	private int categoryId;
+	private String hotelName;
+	private String pricePerNight;
+	private String hotelArea;
+	private String hotelAmenity;
+	private String briefIntroduction;
+	private String roomIntroduction;
+	private String imgUrl;
+	private String ownerName;
+	private String ownerPicture;
+	
+	
+	public int getRoomId() {
+		return roomId;
+	}
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
+	}
+	
+	public String getPricePerNight() {
+		return pricePerNight;
+	}
+	public void setPricePerNight(String pricePerNight) {
+		this.pricePerNight = pricePerNight;
+	}
+	
+	
+	public String getRoomIntroduction() {
+		return roomIntroduction;
+	}
+	public void setRoomIntroduction(String roomIntroduction) {
+		this.roomIntroduction = roomIntroduction;
+	}
+	
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	public String getOwnerName() {
+		return ownerName;
+	}
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+	public String getOwnerPicture() {
+		return ownerPicture;
+	}
+	public void setOwnerPicture(String ownerPicture) {
+		this.ownerPicture = ownerPicture;
+	}
+	public int getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+	public String getHotelArea() {
+		return hotelArea;
+	}
+	public void setHotelArea(String hotelArea) {
+		this.hotelArea = hotelArea;
+	}
+	public String getHotelAmenity() {
+		return hotelAmenity;
+	}
+	public void setHotelAmenity(String hotelAmenity) {
+		this.hotelAmenity = hotelAmenity;
+	}
+	public String getHotelName() {
+		return hotelName;
+	}
+	public void setHotelName(String hotelName) {
+		this.hotelName = hotelName;
+	}
+	public String getBriefIntroduction() {
+		return briefIntroduction;
+	}
+	public void setBriefIntroduction(String briefIntroduction) {
+		this.briefIntroduction = briefIntroduction;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

@@ -1,0 +1,27 @@
+package ltd.newbee.mall.entity;
+
+public class PriceDetail {
+	private int hotelId;
+	private int pricePerNight;
+	private int cleaningFee;
+	private double totalPrice;
+	public int getCleaningFee() {
+		return cleaningFee;
+	}
+	public void setCleaningFee(int cleaningFee) {
+		this.cleaningFee = cleaningFee;
+	}
+	public int getHotelId() {
+		return hotelId;
+	}
+	public void setHotelId(int hotelId) {
+		this.hotelId = hotelId;
+	}
+	public int getPricePerNight() {
+		return pricePerNight;
+	}
+	public void setPricePerNight(int pricePerNight) {
+		this.pricePerNight = pricePerNight;
+	}
+
+}

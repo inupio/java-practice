@@ -1,0 +1,53 @@
+package ltd.newbee.mall.controller.mall;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import ltd.newbee.mall.entity.HotelDetail;
+import ltd.newbee.mall.entity.PriceDetail;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import ltd.newbee.mall.service.HotelDetailService;
+
+@RestController
+public class HotelDetailController {
+
+	@Autowired
+	private HotelDetailService hotelDetailService;
+
+	@GetMapping("hoteldetail")
+	public HotelDetail getHotelDetail(@RequestParam int hotelId) {
+		return hotelDetailService.getHotelDetail(hotelId);
+
+	}
+
+	@GetMapping("hotelreview")
+	public List<HashMap<String, Object>> getHotelReview(@RequestParam int hotelId) {
+
+		return hotelDetailService.getHotelReview(hotelId);
+
+	}
+
+	@GetMapping("hoteldetail/price")
+	public PriceDetail getPriceDetail(@RequestParam int hotelId,
+			@RequestParam("checkInDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkInDate,
+			@RequestParam("checkOutDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOutDate) {
+
+		PriceDetail priceDetail = hotelDetailService.getTotalPrice(hotelId, checkInDate, checkOutDate);
+		    
+		    int totalBookingDays = (int) ChronoUnit.DAYS.between(checkInDate, checkOutDate);
+		    double totalPrice =priceDetail.getPricePerNight() * totalBookingDays + hotelInfo.getCleaningFee();
+		    hotelInfo.setTotalPrice(totalPrice);
+		    return hotelInfo;
+		  }
+
+	}
+
+}

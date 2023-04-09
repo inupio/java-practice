@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.BookingMapper">
+	<!-- hotel information-->
+	<!-- to do :create an hotelInfo entity-->
+	<select id="hotelInfo" resultType="ltd.newbee.mall.entity.hotelInfo">
+		SELECT hotel_id,hotel_name,cancellation_policy,rule,review_count,
+		overrall_star,imgUrl
+		
+		from hotel_introduction
+		join hotel_info on hotel_introduction.hotel_id =  hotel_info.hotel_id
+		join hotel_image on hotel_introduction.hotel_id =  hotel_image.hotel_id
+		WHERE hotel_id = #{hotelId} 
+	</select>
+	<!-- book detail-->
+	<insert id="booking" parameterType="ltd.newbee.mall.entity.BookingDetail">
+		insert into booking_status
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="hotelId != null">
+                hotel_id,
+            </if>
+			<if test="hotelName != null">
+                hotel_name,
+            </if>
+			<if test="userId != null">
+                user_id,
+            </if>
+			<if test="userName != null">
+                user_name,
+            </if>
+            
+             <if test="guest != null">
+                guest,
+            </if>
+			<if test="checkInDate != null">
+                check_in_date,
+            </if>
+            <if test="check_out_date != null">
+                check_out_date,
+            </if>
+            
+            <if test="userContact != null">
+                user_contact,
+            </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="hotelId != null">
+                #{hotelId,jdbcType=INTEGER},
+            </if>
+			<if test="hotelName != null">
+                #{hotelName,jdbcType=VARCHAR},
+            </if>
+			<if test="userId  != null">
+                #{userId  ,jdbcType=INTEGER},
+            </if>
+			<if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+			<if test="checkInDate != null">
+                #{checkInDate,jdbcType=DATE},
+            </if>
+			<if test="checkOutDate != null">
+                #{checkOutDate,jdbcType=DATE},
+            </if>
+               <if test="userContact != null">
+                #{user_contact,jdbcType = VARCHAR}
+            </if>
+            
+		</trim>
+	</insert>
+	
+	
+	
+	<!-- insert payment-->
+	<insert id="payment" parameterType="ltd.newbee.mall.entity.PayDetail">
+		insert into credit_cards
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cardNum != null">
+                card_num,
+            </if>
+			<if test="cardType != null">
+                card_type,
+            </if>
+			<if test ="expirationMonth != null">
+               expiration_month
+            </if>
+			<if test="expirationYear != null">
+                expiration_year,
+            </if>
+			<if test="cvv != null">
+                cvv,
+            </if>
+			<if test="postcode != null">
+                postcode,
+            </if>
+            <if test="country != null">
+                country,
+            </if>
+            
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+			<if test="reviewTittle != null">
+                #{reviewTittle,jdbcType=VARCHAR},
+            </if>
+			<if test="contents != null">
+                #{contents ,jdbcType=VARCHAR},
+            </if>
+			<if test="reviewer != null">
+                #{reviewer,jdbcType=VARCHAR},
+            </if>
+			<if test="stars != null">
+                #{stars,jdbcType=INTEGER},
+            </if>
+			<if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+		</trim>
+	</insert>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="ltd.newbee.mall.dao.HotelDetailMapper">
+	<select id="getHotelDetail" resultType="ltd.newbee.mall.entity.HotelDetail">
+	SELECT 
+			hotel_info.hotel_id,
+			hotel_info.category_id,
+			hotel_info.hotel_name,
+			FORMAT(hotel_info.price_per_night,0,',') as price_per_night,
+			
+			
+			concat(hotel_info.city,'',hotel_info.state,'',hotel_info.country)as hotel_area,
+			
+			hotel_introduction.brief_introduction,
+			hotel_introduction.hotel_introduction,
+			concat('guest ',room_infomation.guest,', bathroom',room_infomation.bathroom,', bed ',room_infomation.bed,
+			'bedroom',room_infomation.bedroom) as hotel_amenity,
+			
+			hotel_image.imgUrl,
+			owner_table.owner_name,
+			owner_table.owner_picture
+			
+		FROM hotel_info
+		JOIN hotel_introduction ON hotel_info.hotel_id = hotel_introduction.hotel_id
+		JOIN room_infomation ON hotel_info.hotel_id = room_infomation.hotel_id
+		JOIN hotel_image ON hotel_info.hotel_id = hotel_image.hotel_id
+		JOIN owner_table ON owner_table.owner_id = hotel_info.owner_id
+		
+		WHERE hotel_info.hotel_id = #{hotelId}
+
+	
+	</select>
+	
+	<select id="getHotelReview" resultType="java.util.HashMap">
+	SELECT
+	
+	hotel_name,
+	review_detail,
+	review_date,
+	point_clean,
+	point_communication,
+	point_info,
+	point_location,
+	point_price,
+	point_checkin,
+	user_name,
+    COUNT(review_bnb.review_id) AS review_count,
+    ROUND(AVG(review_bnb.point_clean + review_bnb.point_communication + review_bnb.point_info + review_bnb.point_price + review_bnb.point_location + review_bnb.point_checkin)/6, 2) AS hotel_star
+    FROM review_bnb
+    WHERE review_bnb.hotel_id = #{hotelId}
+    GROUP BY review_bnb.hotel_id;	
+	</select>
+	
+	
+	
+    <select id="getTotalPrice" resultType="ltd.newbee.mall.entity.">
+		select hotel_info.hotel_id,hotel_info.price_per_night,hotel_info.cleaning_fee
+		from hotel_info
+		<where>
+			 <if test="hotelId!=null and hotelId!=''">
+                and hotel_id = #{hotelId}
+            </if>
+            <if test="checkInDate!=null and checkInDate!=''">
+                and check_in_date = #{checkInDate}
+            </if>
+             <if test="checkOutDate!=null and checkOutDate!=''">
+                and check_out_date = #{checkOutDate}
+            </if>
+		</where>
+	</select>
+	
+	
+		
+		
+		
+		
+		
+		
+</mapper>
+
+
+			
+			
+
+			
+		
+		
+		
+		
+     
+        
+		
+	
+	

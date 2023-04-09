@@ -1,0 +1,9 @@
+1680480796108	Encapsulate field 'hotelName'
+1680480841693	Encapsulate field 'briefIntroduction'
+1680498555715	Encapsulate field 'hotelIntroduction'
+1680523550174	Encapsulate field 'hotelReview'
+1680581052455	Rename resource 'ReservationMapper'
+1680581143137	Delete element
+1680583743801	Delete element
+1680593543528	Encapsulate field 'hotelId'
+1680593552174	Encapsulate field 'pricePerNight'

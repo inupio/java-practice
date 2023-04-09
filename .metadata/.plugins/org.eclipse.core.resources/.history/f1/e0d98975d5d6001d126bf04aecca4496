@@ -1,0 +1,61 @@
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import ltd.newbee.mall.entity.BookingDetail;
+import ltd.newbee.mall.entity.PayDetail;
+import ltd.newbee.mall.service.BookingService;
+
+@RestController
+@RequestMapping("/booking")
+public class BookingController {
+
+    @Autowired
+    private BookingService bookingService;
+
+    @GetMapping("/hotelInfo")
+    public Map<String, Object> hotelInfo (@RequestParam("hotelId") int hotelId, @RequestParam("checkInDate") String checkInDate, @RequestParam("checkOutDate") String checkOutDate) {
+        LocalDate checkIn = LocalDate.parse(checkInDate);
+        LocalDate checkOut = LocalDate.parse(checkOutDate);
+        long numNights = ChronoUnit.DAYS.between(checkIn, checkOut);
+
+        List<Map<String, Object>> hotelInfoList = bookingService.hotelInfo(hotelId);
+        Map<String, Object> hotelInfo = hotelInfoList.get(0);
+        double perNightPrice = (double) hotelInfo.get("per_night_price");
+        double totalPrice = perNightPrice * numNights;
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("hotelInfo", hotelInfo);
+        result.put("numNights", numNights);
+        result.put("totalPrice", totalPrice);
+
+        return result;
+    }
+
+
+    @RequestMapping(value = "/bookings", method = RequestMethod.POST)
+    public ResponseEntity<?> createBooking(@RequestParam("hotelId") int hotelId, @RequestParam("checkInDate") String checkInDate, @RequestParam("checkOutDate") String checkOutDate, @RequestBody BookingDetail bookingDetail) {
+    	
+
+
+    }
+
+
+    @PostMapping("/payment")
+    public void makePayment(@RequestBody PayDetail payDetail) {
+        bookingService.payment(payDetail);
+    }
+}
+

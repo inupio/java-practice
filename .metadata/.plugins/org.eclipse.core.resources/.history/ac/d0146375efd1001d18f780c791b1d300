@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.HotelDetailMapper">
+	<select id="getHotelDetail" resultType="ltd.newbee.mall.entity.HotelDetail">
+	SELECT 
+			hotel_info.hotel_id,
+			hotel_info.category_id,
+			hotel_info.hotel_name,
+			FORMAT(hotel_info.price_per_night,0,',') as price_per_night,
+			
+			concat(hotel_info.city,'',hotel_info.state,'',hotel_info.country)as hotel_area,
+			
+			hotel_introduction.brief_introduction,
+			hotel_introduction.hotel_introduction,
+			concat('guest ',room_infomation.guest,', bathroom',room_infomation.bathroom,', bed ',room_infomation.bed,
+			'bedroom',room_infomation.bedroom) as hotel_amenity,
+			
+			hotel_image.imgUrl,
+			owner_table.owner_name,
+			owner_table.owner_picture
+			
+		FROM hotel_info
+		JOIN hotel_introduction ON hotel_info.hotel_id = hotel_introduction.hotel_id
+		JOIN room_infomation ON hotel_info.hotel_id = room_infomation.hotel_id
+		JOIN hotel_image ON hotel_info.hotel_id = hotel_image.hotel_id
+		JOIN owner_table ON owner_table.owner_id = hotel_info.owner_id
+		
+		WHERE hotel_info.hotel_id = #{hotelId}
+
+	
+	</select>
+	<select id="getHotelReview" resultType="java.util.HashMap">
+	SELECT 
+    COUNT(review_bnb.review_id) AS review_count,
+    ROUND(AVG(
+        CAST(review_bnb.point_clean AS FLOAT) +
+        CAST(review_bnb.point_communication AS FLOAT) +
+        CAST(review_bnb.point_info AS FLOAT) +
+        CAST(review_bnb.point_price AS FLOAT) +
+        CAST(review_bnb.point_location AS FLOAT) +
+        CAST(review_bnb.point_checkin AS FLOAT)
+    ), 2) AS hotel_star
+  FROM review_bnb
+  WHERE review_bnb.hotel_id = #{hotelId}
+  GROUP BY review_bnb.hotel_id;
+
+	</select>
+</mapper>

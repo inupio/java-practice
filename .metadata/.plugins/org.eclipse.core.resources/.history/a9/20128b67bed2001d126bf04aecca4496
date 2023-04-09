@@ -1,0 +1,24 @@
+package ltd.newbee.mall.service;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import ltd.newbee.mall.entity.HotelDetail;
+import ltd.newbee.mall.entity.PriceDetail;
+
+
+public interface HotelDetailService {
+	
+	List<HotelDetail> getHotelDetail(@Param(value = "hotelId")int hotelId);
+	
+	List<HashMap<String, Object>> getHotelReview(@Param(value = "hotelId") int hotelId);
+	
+	List<PriceDetail> getTotalPrice(@Param("hotelId") int hotelId);
+
+	
+	
+	
+
+}
